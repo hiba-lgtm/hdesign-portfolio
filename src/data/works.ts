@@ -11,6 +11,9 @@ import timr3 from "@/imports/Timr_3.jpg";
 import haulerHero1 from "@/imports/Hauler Hero_1.jpg";
 import haulerHero2 from "@/imports/Hauler Hero_2.jpg";
 import haulerHero3 from "@/imports/Hauler Hero 3.jpg";
+import pebbleCaseStudy1 from "@/imports/Pebble_1.jpg";
+import pebbleCaseStudy2 from "@/imports/Pebble_2.jpg";
+import pebbleCaseStudy3 from "@/imports/Pebble_3.jpg";
 import neutreenoEmission from "@/imports/Neutreeno_Emission Action Center.png";
 import neutreenoEntity from "@/imports/Neutreeno_Entity Deletion.png";
 import neutreenoProducts from "@/imports/Neutreeno_My Products.png";
@@ -175,9 +178,9 @@ export const WORKS: Work[] = [
     role: "Lead UI/UX Designer",
     skills: ["User Experience Design", "User Interface Design", "High Fidelity Design", "Mobile App Design", "Figma"],
     caseStudyImages: [
-      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1400&h=900&fit=crop&auto=format",
-      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1400&h=900&fit=crop&auto=format",
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1400&h=900&fit=crop&auto=format",
+      pebbleCaseStudy1,
+      pebbleCaseStudy2,
+      pebbleCaseStudy3,
     ],
     externalUrl: "#",
     problem: "",
