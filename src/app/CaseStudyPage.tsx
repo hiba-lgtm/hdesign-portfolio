@@ -1,11 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router";
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { ArrowLeft, ArrowRight, Moon, Sun } from "lucide-react";
 import { WORKS } from "../data/works";
 import logoImg from "@/imports/HDesign Logo.png";
 import CustomCursor from "./CustomCursor";
 import AnimatedMetric from "./AnimatedMetric";
+
+function ParallaxImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const rawY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
+  const y = useSpring(rawY, { stiffness: 60, damping: 20, mass: 0.8 });
+
+  return (
+    <div ref={ref} className={`overflow-hidden ${className ?? ""}`} style={{ borderRadius: "8px", background: "var(--muted)" }}>
+      <motion.img
+        src={src}
+        alt={alt}
+        className="w-full h-auto block"
+        style={{ y, scale: 1.14, willChange: "transform" }}
+      />
+    </div>
+  );
+}
 
 export default function CaseStudyPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -275,60 +293,18 @@ export default function CaseStudyPage() {
         <div className="max-w-6xl mx-auto flex flex-col gap-5">
           {work.caseStudyImages.length === 3 ? (
             <>
-              {/* Full-width first image */}
-              <motion.div
-                className="w-full overflow-hidden"
-                style={{ borderRadius: "8px", background: "var(--muted)" }}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "0px 0px -60px 0px" }}
-                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <img
-                  src={work.caseStudyImages[0]}
-                  alt={`${work.title} — screen 1`}
-                  className="w-full h-auto block"
-                />
-              </motion.div>
-              {/* Two side-by-side below */}
+              {/* Two side-by-side on top */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {work.caseStudyImages.slice(1).map((src, i) => (
-                  <motion.div
-                    key={i}
-                    className="w-full overflow-hidden"
-                    style={{ borderRadius: "8px", background: "var(--muted)" }}
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "0px 0px -60px 0px" }}
-                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: (i + 1) * 0.08 }}
-                  >
-                    <img
-                      src={src}
-                      alt={`${work.title} — screen ${i + 2}`}
-                      className="w-full h-auto block"
-                    />
-                  </motion.div>
-                ))}
+                <ParallaxImage src={work.caseStudyImages[0]} alt={`${work.title} — screen 1`} />
+                <ParallaxImage src={work.caseStudyImages[1]} alt={`${work.title} — screen 2`} />
               </div>
+              {/* Full-width at bottom */}
+              <ParallaxImage src={work.caseStudyImages[2]} alt={`${work.title} — screen 3`} />
             </>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {work.caseStudyImages.slice(0, 4).map((src, i) => (
-                <motion.div
-                  key={i}
-                  className="w-full overflow-hidden"
-                  style={{ borderRadius: "8px", background: "var(--muted)" }}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "0px 0px -60px 0px" }}
-                  transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: i * 0.08 }}
-                >
-                  <img
-                    src={src}
-                    alt={`${work.title} — screen ${i + 1}`}
-                    className="w-full h-auto block"
-                  />
-                </motion.div>
+                <ParallaxImage key={i} src={src} alt={`${work.title} — screen ${i + 1}`} />
               ))}
             </div>
           )}
