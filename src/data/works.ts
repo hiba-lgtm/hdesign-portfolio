@@ -10,7 +10,7 @@ import timr2 from "@/imports/Timr_2.jpg";
 import timr3 from "@/imports/Timr_3.jpg";
 import haulerHero1 from "@/imports/Hauler Hero_1.jpg";
 import haulerHero2 from "@/imports/Hauler Hero_2.jpg";
-import haulerHero3 from "@/imports/Hauler Hero_3.jpg";
+import haulerHero3 from "@/imports/Hauler Hero 3.jpg";
 import neutreenoEmission from "@/imports/Neutreeno_Emission Action Center.png";
 import neutreenoEntity from "@/imports/Neutreeno_Entity Deletion.png";
 import neutreenoProducts from "@/imports/Neutreeno_My Products.png";
