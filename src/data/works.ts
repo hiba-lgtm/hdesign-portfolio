@@ -5,6 +5,9 @@ import pebble1 from "@/imports/Pebble 1.png";
 import listingLeaders from "@/imports/Listing Leaders.png";
 import listingLeadersVideo from "@/imports/Listing Leaders.mp4";
 import neutreenoCoverVideo from "@/imports/Neutreeno Cover.mp4";
+import neutreenoEmission from "@/imports/Neutreeno_Emission Action Center.png";
+import neutreenoEntity from "@/imports/Neutreeno_Entity Deletion.png";
+import neutreenoProducts from "@/imports/Neutreeno_My Products.png";
 import gmfAssociates from "@/imports/GMF Associates.png";
 
 export interface Metric {
@@ -59,9 +62,9 @@ export const WORKS: Work[] = [
     role: "Lead UI/UX Designer",
     skills: ["User Interface Design", "Design Systems", "Data Visualization", "Design QA", "Figma"],
     caseStudyImages: [
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&h=900&fit=crop&auto=format",
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1400&h=900&fit=crop&auto=format",
-      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1400&h=900&fit=crop&auto=format",
+      neutreenoEmission,
+      neutreenoEntity,
+      neutreenoProducts,
     ],
     externalUrl: "#",
     problem:
