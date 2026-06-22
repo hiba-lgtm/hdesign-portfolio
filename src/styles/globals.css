@@ -1,0 +1,7 @@
+/* Hide the native cursor on fine-pointer (mouse) devices only.
+   Touch devices are unaffected — they have no visible cursor to hide. */
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
