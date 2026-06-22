@@ -272,8 +272,8 @@ export default function CaseStudyPage() {
 
       {/* ── Image gallery ───────────────────────────────────────────────────── */}
       <section className="px-6 md:px-12 pb-28">
-        <div className="max-w-6xl mx-auto flex flex-col gap-5">
-          {work.caseStudyImages.map((src, i) => (
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5">
+          {work.caseStudyImages.slice(0, 4).map((src, i) => (
             <motion.div
               key={i}
               className="w-full overflow-hidden"
@@ -281,7 +281,7 @@ export default function CaseStudyPage() {
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "0px 0px -60px 0px" }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: i * 0.08 }}
             >
               <img
                 src={src}
