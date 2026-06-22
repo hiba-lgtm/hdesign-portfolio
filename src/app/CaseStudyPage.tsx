@@ -1,25 +1,22 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
-import { motion, useScroll, useTransform, useSpring } from "motion/react";
+import { motion } from "motion/react";
 import { ArrowLeft, ArrowRight, Moon, Sun } from "lucide-react";
 import { WORKS } from "../data/works";
 import logoImg from "@/imports/HDesign Logo.png";
 import CustomCursor from "./CustomCursor";
 import AnimatedMetric from "./AnimatedMetric";
 
-function ParallaxImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const rawY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
-  const y = useSpring(rawY, { stiffness: 60, damping: 20, mass: 0.8 });
-
+function GalleryImage({ src, alt }: { src: string; alt: string }) {
   return (
-    <div ref={ref} className={`overflow-hidden ${className ?? ""}`} style={{ borderRadius: "8px", background: "var(--muted)" }}>
+    <div className="overflow-hidden" style={{ borderRadius: "8px", background: "var(--muted)" }}>
       <motion.img
         src={src}
         alt={alt}
         className="w-full h-auto block"
-        style={{ y, scale: 1.14, willChange: "transform" }}
+        initial={{ scale: 1 }}
+        whileHover={{ scale: 1.03 }}
+        transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
       />
     </div>
   );
@@ -295,16 +292,16 @@ export default function CaseStudyPage() {
             <>
               {/* Two side-by-side on top */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <ParallaxImage src={work.caseStudyImages[0]} alt={`${work.title} — screen 1`} />
-                <ParallaxImage src={work.caseStudyImages[1]} alt={`${work.title} — screen 2`} />
+                <GalleryImage src={work.caseStudyImages[0]} alt={`${work.title} — screen 1`} />
+                <GalleryImage src={work.caseStudyImages[1]} alt={`${work.title} — screen 2`} />
               </div>
               {/* Full-width at bottom */}
-              <ParallaxImage src={work.caseStudyImages[2]} alt={`${work.title} — screen 3`} />
+              <GalleryImage src={work.caseStudyImages[2]} alt={`${work.title} — screen 3`} />
             </>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {work.caseStudyImages.slice(0, 4).map((src, i) => (
-                <ParallaxImage key={i} src={src} alt={`${work.title} — screen ${i + 1}`} />
+                <GalleryImage key={i} src={src} alt={`${work.title} — screen ${i + 1}`} />
               ))}
             </div>
           )}
