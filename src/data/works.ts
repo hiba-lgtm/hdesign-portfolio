@@ -8,6 +8,9 @@ import neutreenoCoverVideo from "@/imports/Neutreeno Cover.mp4";
 import timr1 from "@/imports/Timr_1.jpg";
 import timr2 from "@/imports/Timr_2.jpg";
 import timr3 from "@/imports/Timr_3.jpg";
+import haulerHero1 from "@/imports/Hauler Hero_1.jpg";
+import haulerHero2 from "@/imports/Hauler Hero_2.jpg";
+import haulerHero3 from "@/imports/Hauler Hero_3.jpg";
 import neutreenoEmission from "@/imports/Neutreeno_Emission Action Center.png";
 import neutreenoEntity from "@/imports/Neutreeno_Entity Deletion.png";
 import neutreenoProducts from "@/imports/Neutreeno_My Products.png";
@@ -143,9 +146,9 @@ export const WORKS: Work[] = [
     role: "Lead UI/UX Designer",
     skills: ["User Experience Design", "User Interface Design", "High Fidelity Design", "Mobile App Design", "Figma"],
     caseStudyImages: [
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1400&h=900&fit=crop&auto=format",
-      "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=1400&h=900&fit=crop&auto=format",
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1400&h=900&fit=crop&auto=format",
+      haulerHero1,
+      haulerHero2,
+      haulerHero3,
     ],
     externalUrl: "#",
     problem: "",
