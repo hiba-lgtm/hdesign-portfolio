@@ -5,6 +5,9 @@ import pebble1 from "@/imports/Pebble 1.png";
 import listingLeaders from "@/imports/Listing Leaders.png";
 import listingLeadersVideo from "@/imports/Listing Leaders.mp4";
 import neutreenoCoverVideo from "@/imports/Neutreeno Cover.mp4";
+import timr1 from "@/imports/Timr_1.jpg";
+import timr2 from "@/imports/Timr_2.jpg";
+import timr3 from "@/imports/Timr_3.jpg";
 import neutreenoEmission from "@/imports/Neutreeno_Emission Action Center.png";
 import neutreenoEntity from "@/imports/Neutreeno_Entity Deletion.png";
 import neutreenoProducts from "@/imports/Neutreeno_My Products.png";
@@ -101,9 +104,9 @@ export const WORKS: Work[] = [
     role: "Lead UI/UX Designer",
     skills: ["User Experience Design", "User Interface Design", "High Fidelity Design", "Mobile App Design", "Figma"],
     caseStudyImages: [
-      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1400&h=900&fit=crop&auto=format",
-      "https://images.unsplash.com/photo-1547954575-855750c57bd3?w=1400&h=900&fit=crop&auto=format",
-      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=1400&h=900&fit=crop&auto=format",
+      timr1,
+      timr2,
+      timr3,
     ],
     externalUrl: "#",
     problem:
