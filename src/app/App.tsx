@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router";
-import { motion, useScroll, useTransform, useInView, useMotionValue, useSpring, useReducedMotion, type MotionValue } from "motion/react";
+import { motion, AnimatePresence, useScroll, useTransform, useInView, useMotionValue, useSpring, useReducedMotion, type MotionValue } from "motion/react";
 import logoImg from "@/imports/HDesign Logo.png";
 import aboutImg from "@/imports/About.JPG";
 import { WORKS, type Work, type FilterTag, type Metric } from "../data/works";
@@ -319,6 +319,69 @@ const STATS = [
 ];
 
 const ACCENT_GLOW = "rgba(237,255,135,0.4)"; // lime glow — always on dark card images, so stays hardcoded
+
+function LoadingScreen({ onFinish }: { onFinish: () => void }) {
+  const [count, setCount] = useState(0);
+  const [exiting, setExiting] = useState(false);
+
+  useEffect(() => {
+    const startDelay = 600; // wait for "h" fade-in to finish
+    const countDuration = 1500;
+    const steps = 100;
+    const stepTime = countDuration / steps;
+
+    const startTimeout = setTimeout(() => {
+      let current = 0;
+      const interval = setInterval(() => {
+        current += 1;
+        setCount(current);
+        if (current >= 100) {
+          clearInterval(interval);
+          setTimeout(() => setExiting(true), 300);
+        }
+      }, stepTime);
+    }, startDelay);
+
+    return () => clearTimeout(startTimeout);
+  }, []);
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-[200] flex flex-col items-center justify-center"
+      style={{ background: "#000000" }}
+      initial={{ opacity: 1 }}
+      animate={{ opacity: exiting ? 0 : 1 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      onAnimationComplete={() => {
+        if (exiting) onFinish();
+      }}
+    >
+      <motion.span
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        style={{
+          fontFamily: "'Playfair Display', serif",
+          fontStyle: "italic",
+          fontSize: "clamp(120px, 14vw, 150px)",
+          lineHeight: 1,
+          color: "#ffffff",
+        }}
+      >
+        h
+      </motion.span>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, delay: 0.6 }}
+        className="mt-6 text-xs tracking-[0.3em] uppercase"
+        style={{ fontFamily: "'DM Mono', monospace", color: "#B8915A" }}
+      >
+        {count}%
+      </motion.div>
+    </motion.div>
+  );
+}
 
 function Hero() {
   return (
@@ -1777,6 +1840,15 @@ export default function App() {
   const [isDark, setIsDark] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const [page, setPage] = useState<"home" | "about">("home");
+  const [loaderVisible, setLoaderVisible] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return !sessionStorage.getItem("hdesign-loader-shown");
+  });
+
+  const handleLoaderFinish = useCallback(() => {
+    sessionStorage.setItem("hdesign-loader-shown", "true");
+    setLoaderVisible(false);
+  }, []);
 
 
   // Curtain scroll tracking — drives border-radius on the WorkGrid as it rises
@@ -1843,6 +1915,11 @@ export default function App() {
   }, [page]);
 
   return (
+    <>
+      <AnimatePresence>
+        {loaderVisible && <LoadingScreen key="loader" onFinish={handleLoaderFinish} />}
+      </AnimatePresence>
+      {!loaderVisible && (
     <div className="min-h-screen bg-background text-foreground" style={{ fontFamily: "'General Sans', sans-serif" }}>
       <CustomCursor />
       <Nav
@@ -1899,5 +1976,7 @@ export default function App() {
       )}
       <Footer />
     </div>
+      )}
+    </>
   );
 }
