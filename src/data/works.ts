@@ -1,5 +1,6 @@
 import neutreenoDashboard from "@/imports/Neutreeno Decarb.png";
 import timrWebsite from "@/imports/Timr Website.png";
+import timrCoverVideo from "@/imports/Timr Cover.mp4";
 import haulerHero from "@/imports/Hauler Hero.png";
 import pebble1 from "@/imports/Pebble 1.png";
 import listingLeaders from "@/imports/Listing Leaders.png";
@@ -112,6 +113,7 @@ export const WORKS: Work[] = [
     displayTag: "SaaS + iOS",
     year: "2024",
     thumbnail: timrWebsite,
+    thumbnailVideo: timrCoverVideo,
     metric: "40% Reduction in Timesheet Processing Time",
     role: "Lead UI/UX Designer",
     skills: ["User Experience Design", "User Interface Design", "High Fidelity Design", "Mobile App Design", "Figma"],
