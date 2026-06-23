@@ -893,23 +893,33 @@ function EditorialCardContent({ work, isInView }: { work: Work; isInView: boolea
       {/* Mobile: flex column (image top, info bottom). Desktop: two-column grid */}
       <div className="flex flex-col md:grid md:grid-cols-2 w-full h-full" style={{ gap: 0 }}>
 
-        {/* Image — top on mobile, right column on desktop */}
+        {/* Image — below text on mobile, right column on desktop */}
         <motion.div
-          className="md:hidden order-first w-full flex-shrink-0 overflow-hidden"
-          style={{ height: "300px", background: "var(--card-fill)" }}
+          className="md:hidden order-2 w-full flex-shrink-0 px-8 pb-6"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <ThumbnailMedia
-            work={work}
-            className="w-full h-full object-cover object-center"
-            style={work.slug === "neutreeno" ? { objectPosition: "left center", transform: "scale(1.1)", transformOrigin: "left center" } : undefined}
-          />
+          <div
+            className="w-full overflow-hidden"
+            style={{
+              borderRadius: "10px",
+              border: "1px solid rgba(255,255,255,0.15)",
+              boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+              aspectRatio: "1440 / 1024",
+              background: "var(--card-fill)",
+            }}
+          >
+            <ThumbnailMedia
+              work={work}
+              className="w-full h-full object-cover object-center"
+              style={work.slug === "neutreeno" ? { objectPosition: "left center", transform: "scale(1.1)", transformOrigin: "left center" } : undefined}
+            />
+          </div>
         </motion.div>
 
         {/* LEFT — project info, vertically centered */}
-        <div className="flex items-center px-8 py-6 md:px-20 lg:px-28 md:py-0">
+        <div className="order-1 md:order-none flex items-center px-8 py-6 md:px-20 lg:px-28 md:py-0">
           <motion.div
             className="flex flex-col gap-6"
             initial={{ opacity: 0, y: 24 }}
