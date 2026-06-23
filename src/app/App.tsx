@@ -913,7 +913,6 @@ function EditorialCardContent({ work, isInView }: { work: Work; isInView: boolea
             <ThumbnailMedia
               work={work}
               className="w-full h-full object-cover object-center"
-              style={work.slug === "neutreeno" ? { objectPosition: "left center", transform: "scale(1.1)", transformOrigin: "left center" } : undefined}
             />
           </div>
         </motion.div>
