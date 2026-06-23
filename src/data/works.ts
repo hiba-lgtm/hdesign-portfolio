@@ -3,6 +3,7 @@ import timrWebsite from "@/imports/Timr Website.png";
 import timrCoverVideo from "@/imports/Timr Cover.mp4";
 import haulerHero from "@/imports/Hauler Hero.png";
 import pebble1 from "@/imports/Pebble 1.png";
+import pebbleCoverVideo from "@/imports/Pebble Cover.mp4";
 import listingLeaders from "@/imports/Listing Leaders.png";
 import listingLeadersVideo from "@/imports/Listing Leaders.mp4";
 import neutreenoCoverVideo from "@/imports/Neutreeno Cover.mp4";
@@ -182,6 +183,7 @@ export const WORKS: Work[] = [
     displayTag: "SaaS · CRM",
     year: "2022",
     thumbnail: pebble1,
+    thumbnailVideo: pebbleCoverVideo,
     metric: "6 Core Modules Redesigned",
     role: "Lead UI/UX Designer",
     skills: ["User Experience Design", "User Interface Design", "High Fidelity Design", "Mobile App Design", "Figma"],
