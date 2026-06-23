@@ -5,7 +5,7 @@ import haulerHero from "@/imports/Hauler Hero.png";
 import pebble1 from "@/imports/Pebble 1.png";
 import pebbleCoverVideo from "@/imports/Pebble Cover.mp4";
 import listingLeaders from "@/imports/Listing Leaders.png";
-import listingLeadersVideo from "@/imports/Listing Leaders.mp4";
+import listingLeadersVideo from "@/imports/Listing Leaders Cover.mp4";
 import neutreenoCoverVideo from "@/imports/Neutreeno Cover.mp4";
 import timr1 from "@/imports/Timr_1.jpg";
 import timr2 from "@/imports/Timr_2.jpg";
