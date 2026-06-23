@@ -8,16 +8,31 @@ import CustomCursor from "./CustomCursor";
 import AnimatedMetric from "./AnimatedMetric";
 
 function GalleryImage({ src, alt }: { src: string; alt: string }) {
+  const isVideo = src.endsWith(".mp4");
   return (
     <div className="overflow-hidden" style={{ borderRadius: "8px", background: "var(--muted)" }}>
-      <motion.img
-        src={src}
-        alt={alt}
-        className="w-full h-auto block"
-        initial={{ scale: 1 }}
-        whileHover={{ scale: 1.03 }}
-        transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
-      />
+      {isVideo ? (
+        <motion.video
+          src={src}
+          className="w-full h-auto block"
+          autoPlay
+          muted
+          loop
+          playsInline
+          initial={{ scale: 1 }}
+          whileHover={{ scale: 1.03 }}
+          transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
+        />
+      ) : (
+        <motion.img
+          src={src}
+          alt={alt}
+          className="w-full h-auto block"
+          initial={{ scale: 1 }}
+          whileHover={{ scale: 1.03 }}
+          transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
+        />
+      )}
     </div>
   );
 }
