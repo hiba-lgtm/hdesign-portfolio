@@ -62,11 +62,11 @@ export const WORKS: Work[] = [
   {
     id: "01",
     slug: "neutreeno",
-    title: "Neutreeno",
+    title: "Terramo",
     summary:
       "Supplier decarbonisation platform — helping manufacturers map, track and reduce their Scope 3 emissions.",
     caseStudyDescription:
-      "As Lead UI/UX Designer for Neutreeno's supplier decarbonisation platform, I help manufacturers map, track, and reduce their Scope 3 emissions through software that turns carbon data into clear, prioritized action. My work spans the full product surface — designing new user stories and dashboard experiences, simplifying complex emissions data into usable interfaces, building out and maintaining the team's design component library, and running design QA to keep what ships aligned with what's designed. Alongside product work, I've also supported marketing material as needed, helping translate the platform's technical depth into clear visual communication.",
+      "As Lead UI/UX Designer for Terramo's supplier decarbonisation platform, I help manufacturers map, track, and reduce their Scope 3 emissions through software that turns carbon data into clear, prioritized action. My work spans the full product surface — designing new user stories and dashboard experiences, simplifying complex emissions data into usable interfaces, building out and maintaining the team's design component library, and running design QA to keep what ships aligned with what's designed. Alongside product work, I've also supported marketing material as needed, helping translate the platform's technical depth into clear visual communication.",
     category: "SaaS Platform",
     filterTag: "SaaS",
     displayTag: "SaaS Platform",
