@@ -49,8 +49,7 @@ export default function CaseStudyPage() {
 
   useEffect(() => {
     const stored = localStorage.getItem("portfolio-theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const dark = stored === "dark" || (!stored && prefersDark);
+    const dark = stored !== "light";
     setIsDark(dark);
     document.documentElement.classList.toggle("dark", dark);
   }, []);

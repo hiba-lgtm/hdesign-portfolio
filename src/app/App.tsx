@@ -1900,11 +1900,10 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  // Initialize dark mode from preference / storage
+  // Initialize dark mode from storage — defaults to dark when no preference is stored
   useEffect(() => {
     const stored = localStorage.getItem("portfolio-theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const dark = stored === "dark" || (!stored && prefersDark);
+    const dark = stored !== "light";
     setIsDark(dark);
     document.documentElement.classList.toggle("dark", dark);
   }, []);
