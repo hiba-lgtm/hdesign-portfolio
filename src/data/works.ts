@@ -26,6 +26,7 @@ import neutreenoEmission from "@/imports/Neutreeno_Emission Action Center.png";
 import neutreenoEntity from "@/imports/Neutreeno_Entity Deletion.png";
 import neutreenoProducts from "@/imports/Neutreeno_My Products.png";
 import gmfAssociates from "@/imports/GMF Associates.png";
+import gmfCoverVideo from "@/imports/GMF Cover.mp4";
 
 export interface Metric {
   label: string;
@@ -243,6 +244,7 @@ export const WORKS: Work[] = [
     displayTag: "Website Redesign",
     year: "2024",
     thumbnail: gmfAssociates,
+    thumbnailVideo: gmfCoverVideo,
     metric: "4 Weeks to Full Redesign",
     role: "Lead UI/UX Designer",
     skills: ["Figma", "Website Redesign", "User Interface Design", "User Experience Design", "Design Thinking"],
