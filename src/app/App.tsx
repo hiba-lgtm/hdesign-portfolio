@@ -405,8 +405,8 @@ function Hero() {
       className="relative min-h-screen flex flex-col pt-16 overflow-hidden"
       style={{ background: "var(--canvas)" }}
     >
-      {/* Main content — vertically positioned with pt-20 bias */}
-      <div className="flex-1 flex items-center pt-20 px-6 md:px-12">
+      {/* Main content — vertically centered on mobile; pt-20 bias on desktop only */}
+      <div className="flex-1 flex items-center md:pt-20 px-6 md:px-12">
         <div className="max-w-6xl mx-auto w-full">
 
           {/* Row 1: eyebrow (left) + H Design. wordmark (right) */}
