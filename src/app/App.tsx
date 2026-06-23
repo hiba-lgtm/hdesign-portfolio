@@ -325,8 +325,8 @@ function LoadingScreen({ onFinish }: { onFinish: () => void }) {
   const [exiting, setExiting] = useState(false);
 
   useEffect(() => {
-    const startDelay = 600; // wait for "h" fade-in to finish
-    const countDuration = 1500;
+    const startDelay = 900; // wait for "h design" fade-in to finish
+    const countDuration = 2200;
     const steps = 100;
     const stepTime = countDuration / steps;
 
@@ -337,7 +337,7 @@ function LoadingScreen({ onFinish }: { onFinish: () => void }) {
         setCount(current);
         if (current >= 100) {
           clearInterval(interval);
-          setTimeout(() => setExiting(true), 300);
+          setTimeout(() => setExiting(true), 500);
         }
       }, stepTime);
     }, startDelay);
@@ -351,31 +351,46 @@ function LoadingScreen({ onFinish }: { onFinish: () => void }) {
       style={{ background: "#000000" }}
       initial={{ opacity: 1 }}
       animate={{ opacity: exiting ? 0 : 1 }}
-      transition={{ duration: 0.5, ease: "easeInOut" }}
+      transition={{ duration: 0.6, ease: "easeInOut" }}
       onAnimationComplete={() => {
         if (exiting) onFinish();
       }}
     >
-      <motion.span
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        style={{
-          fontFamily: "'Playfair Display', serif",
-          fontStyle: "italic",
-          fontSize: "clamp(120px, 14vw, 150px)",
-          lineHeight: 1,
-          color: "#ffffff",
-        }}
-      >
-        h
-      </motion.span>
+      <div className="flex items-baseline">
+        <motion.span
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            fontFamily: "'Playfair Display', serif",
+            fontStyle: "italic",
+            fontSize: "clamp(120px, 14vw, 150px)",
+            lineHeight: 1,
+            color: "#ffffff",
+          }}
+        >
+          h
+        </motion.span>
+        <motion.span
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
+          style={{
+            fontFamily: "'General Sans', sans-serif",
+            fontSize: "clamp(28px, 3vw, 36px)",
+            color: "#ffffff",
+            marginLeft: "8px",
+          }}
+        >
+          design
+        </motion.span>
+      </div>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, delay: 0.6 }}
+        transition={{ duration: 0.4, delay: 0.9 }}
         className="mt-6 text-xs tracking-[0.3em] uppercase"
-        style={{ fontFamily: "'DM Mono', monospace", color: "#B8915A" }}
+        style={{ fontFamily: "'DM Mono', monospace", color: "var(--primary)" }}
       >
         {count}%
       </motion.div>
