@@ -17,6 +17,9 @@ import pebbleCaseStudy3 from "@/imports/Pebble_3.jpg";
 import listingLeadersCaseStudy1 from "@/imports/Listing Leaders_1.jpg";
 import listingLeadersCaseStudy2 from "@/imports/Listing Leaders_2.jpg";
 import listingLeadersCaseStudy3 from "@/imports/Listing Leaders_3.mp4";
+import gmfCaseStudy1 from "@/imports/GMF_1.jpg";
+import gmfCaseStudy2 from "@/imports/GMF_2.jpg";
+import gmfCaseStudy3 from "@/imports/GMF_3.mp4";
 import neutreenoEmission from "@/imports/Neutreeno_Emission Action Center.png";
 import neutreenoEntity from "@/imports/Neutreeno_Entity Deletion.png";
 import neutreenoProducts from "@/imports/Neutreeno_My Products.png";
@@ -240,9 +243,9 @@ export const WORKS: Work[] = [
     role: "Lead UI/UX Designer",
     skills: ["Figma", "Website Redesign", "User Interface Design", "User Experience Design", "Design Thinking"],
     caseStudyImages: [
-      "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&h=900&fit=crop&auto=format",
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&h=900&fit=crop&auto=format",
-      "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1400&h=900&fit=crop&auto=format",
+      gmfCaseStudy1,
+      gmfCaseStudy2,
+      gmfCaseStudy3,
     ],
     externalUrl: "#",
     problem: "",
