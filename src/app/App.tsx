@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router";
-import { motion, AnimatePresence, useScroll, useTransform, useInView, useMotionValue, useSpring, useReducedMotion, type MotionValue } from "motion/react";
+import { motion, AnimatePresence, animate, useScroll, useTransform, useInView, useMotionValue, useSpring, useReducedMotion, type MotionValue } from "motion/react";
 import logoImg from "@/imports/HDesign Logo.png";
 import aboutImg from "@/imports/About.JPG";
 import { WORKS, type Work, type FilterTag, type Metric } from "../data/works";
@@ -1642,9 +1642,9 @@ function EmailSlider() {
   const [revealed, setRevealed] = useState(false);
   const pillRef = useRef<HTMLDivElement>(null);
   const [pillWidth, setPillWidth] = useState(0);
-  const [isPanning, setIsPanning] = useState(false);
-  const [dragOffset, setDragOffset] = useState(0);
   const wasPanned = useRef(false);
+  const panBaseX = useRef(PAD);
+  const x = useMotionValue(PAD);
 
   // Measure pill width on mount and on resize
   useEffect(() => {
@@ -1660,11 +1660,14 @@ function EmailSlider() {
   // Pixel offset: knob left edge at PAD (default) or right edge flush with pill
   const knobX = revealed ? pillWidth - KNOB - PAD : PAD;
   const travel = Math.max(0, pillWidth - KNOB - PAD * 2);
-  const displayX = isPanning
-    ? Math.min(Math.max(knobX + dragOffset, PAD), pillWidth - KNOB - PAD)
-    : knobX;
-
   const spring = { type: "spring" as const, stiffness: 180, damping: 28, mass: 1.2 };
+
+  // Snap the knob to its target whenever revealed/pillWidth change (but not mid-drag)
+  useEffect(() => {
+    const controls = animate(x, knobX, spring);
+    return () => controls.stop();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [knobX]);
 
   return (
     <motion.div
@@ -1677,18 +1680,16 @@ function EmailSlider() {
         setRevealed((v) => !v);
       }}
       onPanStart={() => {
-        setIsPanning(true);
-        setDragOffset(0);
+        panBaseX.current = x.get();
       }}
       onPan={(_, info) => {
-        setDragOffset(info.offset.x);
+        const next = Math.min(Math.max(panBaseX.current + info.offset.x, PAD), pillWidth - KNOB - PAD);
+        x.set(next);
       }}
       onPanEnd={(_, info) => {
         wasPanned.current = Math.abs(info.offset.x) > 4;
-        const progress = travel > 0 ? (knobX + info.offset.x - PAD) / travel : 0;
+        const progress = travel > 0 ? (x.get() - PAD) / travel : 0;
         setRevealed(progress > 0.5);
-        setIsPanning(false);
-        setDragOffset(0);
       }}
       role="button"
       aria-label={revealed ? "Hide email address" : "Reveal email address"}
@@ -1752,13 +1753,11 @@ function EmailSlider() {
 
       {/* Knob — slides between PAD and (pillWidth - KNOB - PAD) */}
       <motion.div
-        animate={isPanning ? undefined : { x: displayX }}
-        transition={spring}
         style={{
           position: "absolute",
           top: PAD,
           left: 0,
-          x: isPanning ? displayX : undefined,
+          x,
           width: KNOB,
           height: KNOB,
           borderRadius: "50%",
