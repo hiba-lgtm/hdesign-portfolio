@@ -64,9 +64,12 @@ function Lightbox({
     return () => window.removeEventListener("keydown", handler);
   }, [index, images.length, onClose, onNavigate]);
 
+  const goPrev = () => onNavigate((index - 1 + images.length) % images.length);
+  const goNext = () => onNavigate((index + 1) % images.length);
+
   return (
     <motion.div
-      className="fixed inset-0 z-[300] flex items-center justify-center p-6 md:p-16"
+      className="fixed inset-0 z-[300] flex flex-col items-center justify-center gap-5 p-6 pt-20 pb-8 md:p-16"
       style={{ background: "rgba(0,0,0,0.92)" }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -77,29 +80,30 @@ function Lightbox({
       <button
         onClick={(e) => { e.stopPropagation(); onClose(); }}
         aria-label="Close"
-        className="absolute top-6 right-6 p-2"
-        style={{ color: "#ffffff" }}
+        className="absolute top-6 right-6 p-2 rounded-full flex items-center justify-center"
+        style={{ color: "#ffffff", background: "rgba(255,255,255,0.12)" }}
       >
-        <X size={24} />
+        <X size={22} />
       </button>
 
+      {/* Desktop side arrows — hidden on mobile to avoid overlapping the image */}
       {images.length > 1 && (
         <>
           <button
-            onClick={(e) => { e.stopPropagation(); onNavigate((index - 1 + images.length) % images.length); }}
+            onClick={(e) => { e.stopPropagation(); goPrev(); }}
             aria-label="Previous image"
-            className="absolute left-4 md:left-8 p-2"
-            style={{ color: "#ffffff" }}
+            className="hidden md:flex absolute left-8 top-1/2 -translate-y-1/2 p-2 rounded-full items-center justify-center"
+            style={{ color: "#ffffff", background: "rgba(255,255,255,0.12)" }}
           >
-            <ArrowLeft size={28} />
+            <ArrowLeft size={26} />
           </button>
           <button
-            onClick={(e) => { e.stopPropagation(); onNavigate((index + 1) % images.length); }}
+            onClick={(e) => { e.stopPropagation(); goNext(); }}
             aria-label="Next image"
-            className="absolute right-4 md:right-8 p-2"
-            style={{ color: "#ffffff" }}
+            className="hidden md:flex absolute right-8 top-1/2 -translate-y-1/2 p-2 rounded-full items-center justify-center"
+            style={{ color: "#ffffff", background: "rgba(255,255,255,0.12)" }}
           >
-            <ArrowRight size={28} />
+            <ArrowRight size={26} />
           </button>
         </>
       )}
@@ -108,13 +112,47 @@ function Lightbox({
         key={index}
         src={images[index]}
         alt=""
-        className="max-w-full max-h-full object-contain"
-        style={{ borderRadius: "8px" }}
+        draggable={false}
+        className="max-w-full max-h-full object-contain touch-none"
+        style={{ borderRadius: "8px", flex: "1 1 auto", minHeight: 0 }}
         initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.25 }}
         onClick={(e) => e.stopPropagation()}
+        onPanEnd={(_, info) => {
+          if (images.length < 2) return;
+          if (info.offset.x < -60) goNext();
+          else if (info.offset.x > 60) goPrev();
+        }}
       />
+
+      {/* Mobile controls — below the image so they never overlap it */}
+      {images.length > 1 && (
+        <div
+          className="flex md:hidden items-center gap-6 flex-shrink-0"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={goPrev}
+            aria-label="Previous image"
+            className="p-3 rounded-full flex items-center justify-center"
+            style={{ color: "#ffffff", background: "rgba(255,255,255,0.12)" }}
+          >
+            <ArrowLeft size={22} />
+          </button>
+          <span style={{ color: "rgba(255,255,255,0.6)", fontFamily: "'DM Mono', monospace", fontSize: "12px" }}>
+            {index + 1} / {images.length}
+          </span>
+          <button
+            onClick={goNext}
+            aria-label="Next image"
+            className="p-3 rounded-full flex items-center justify-center"
+            style={{ color: "#ffffff", background: "rgba(255,255,255,0.12)" }}
+          >
+            <ArrowRight size={22} />
+          </button>
+        </div>
+      )}
     </motion.div>
   );
 }
