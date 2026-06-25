@@ -1,16 +1,22 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
-import { motion } from "motion/react";
-import { ArrowLeft, ArrowRight, Moon, Sun } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { ArrowLeft, ArrowRight, Moon, Sun, X } from "lucide-react";
 import { WORKS } from "../data/works";
 import logoImg from "@/imports/HDesign Logo.png";
 import CustomCursor from "./CustomCursor";
 import AnimatedMetric from "./AnimatedMetric";
 
-function GalleryImage({ src, alt }: { src: string; alt: string }) {
+function GalleryImage({ src, alt, onClick }: { src: string; alt: string; onClick: () => void }) {
   const isVideo = src.endsWith(".mp4");
   return (
-    <div className="overflow-hidden" style={{ borderRadius: "8px", background: "var(--muted)" }}>
+    <div
+      className="overflow-hidden cursor-pointer"
+      style={{ borderRadius: "8px", background: "var(--muted)" }}
+      onClick={onClick}
+      role="button"
+      aria-label={`View ${alt} full size`}
+    >
       {isVideo ? (
         <motion.video
           src={src}
@@ -37,6 +43,82 @@ function GalleryImage({ src, alt }: { src: string; alt: string }) {
   );
 }
 
+function Lightbox({
+  images,
+  index,
+  onClose,
+  onNavigate,
+}: {
+  images: string[];
+  index: number;
+  onClose: () => void;
+  onNavigate: (i: number) => void;
+}) {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") onNavigate((index + 1) % images.length);
+      if (e.key === "ArrowLeft") onNavigate((index - 1 + images.length) % images.length);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [index, images.length, onClose, onNavigate]);
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-[300] flex items-center justify-center p-6 md:p-16"
+      style={{ background: "rgba(0,0,0,0.92)" }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      onClick={onClose}
+    >
+      <button
+        onClick={(e) => { e.stopPropagation(); onClose(); }}
+        aria-label="Close"
+        className="absolute top-6 right-6 p-2"
+        style={{ color: "#ffffff" }}
+      >
+        <X size={24} />
+      </button>
+
+      {images.length > 1 && (
+        <>
+          <button
+            onClick={(e) => { e.stopPropagation(); onNavigate((index - 1 + images.length) % images.length); }}
+            aria-label="Previous image"
+            className="absolute left-4 md:left-8 p-2"
+            style={{ color: "#ffffff" }}
+          >
+            <ArrowLeft size={28} />
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); onNavigate((index + 1) % images.length); }}
+            aria-label="Next image"
+            className="absolute right-4 md:right-8 p-2"
+            style={{ color: "#ffffff" }}
+          >
+            <ArrowRight size={28} />
+          </button>
+        </>
+      )}
+
+      <motion.img
+        key={index}
+        src={images[index]}
+        alt=""
+        className="max-w-full max-h-full object-contain"
+        style={{ borderRadius: "8px" }}
+        initial={{ opacity: 0, scale: 0.97 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.25 }}
+        onClick={(e) => e.stopPropagation()}
+      />
+    </motion.div>
+  );
+}
+
 export default function CaseStudyPage() {
   const { slug } = useParams<{ slug: string }>();
 
@@ -46,6 +128,7 @@ export default function CaseStudyPage() {
   const next = workIndex < WORKS.length - 1 ? WORKS[workIndex + 1] : null;
 
   const [isDark, setIsDark] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const stored = localStorage.getItem("portfolio-theme");
@@ -58,6 +141,12 @@ export default function CaseStudyPage() {
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, [slug]);
+
+  // Lock page scroll while the lightbox is open
+  useEffect(() => {
+    document.body.style.overflow = lightboxIndex !== null ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [lightboxIndex]);
 
   const toggleDark = () => {
     setIsDark((prev) => {
@@ -306,16 +395,16 @@ export default function CaseStudyPage() {
             <>
               {/* Two side-by-side on top */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <GalleryImage src={work.caseStudyImages[0]} alt={`${work.title} — screen 1`} />
-                <GalleryImage src={work.caseStudyImages[1]} alt={`${work.title} — screen 2`} />
+                <GalleryImage src={work.caseStudyImages[0]} alt={`${work.title} — screen 1`} onClick={() => setLightboxIndex(0)} />
+                <GalleryImage src={work.caseStudyImages[1]} alt={`${work.title} — screen 2`} onClick={() => setLightboxIndex(1)} />
               </div>
               {/* Full-width at bottom */}
-              <GalleryImage src={work.caseStudyImages[2]} alt={`${work.title} — screen 3`} />
+              <GalleryImage src={work.caseStudyImages[2]} alt={`${work.title} — screen 3`} onClick={() => setLightboxIndex(2)} />
             </>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {work.caseStudyImages.slice(0, 4).map((src, i) => (
-                <GalleryImage key={i} src={src} alt={`${work.title} — screen ${i + 1}`} />
+                <GalleryImage key={i} src={src} alt={`${work.title} — screen ${i + 1}`} onClick={() => setLightboxIndex(i)} />
               ))}
             </div>
           )}
@@ -366,6 +455,17 @@ export default function CaseStudyPage() {
           </div>
         </div>
       </nav>
+
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <Lightbox
+            images={work.caseStudyImages}
+            index={lightboxIndex}
+            onClose={() => setLightboxIndex(null)}
+            onNavigate={setLightboxIndex}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
