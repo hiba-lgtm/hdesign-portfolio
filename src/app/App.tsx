@@ -1642,6 +1642,9 @@ function EmailSlider() {
   const [revealed, setRevealed] = useState(false);
   const pillRef = useRef<HTMLDivElement>(null);
   const [pillWidth, setPillWidth] = useState(0);
+  const [isPanning, setIsPanning] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
+  const wasPanned = useRef(false);
 
   // Measure pill width on mount and on resize
   useEffect(() => {
@@ -1656,13 +1659,37 @@ function EmailSlider() {
 
   // Pixel offset: knob left edge at PAD (default) or right edge flush with pill
   const knobX = revealed ? pillWidth - KNOB - PAD : PAD;
+  const travel = Math.max(0, pillWidth - KNOB - PAD * 2);
+  const displayX = isPanning
+    ? Math.min(Math.max(knobX + dragOffset, PAD), pillWidth - KNOB - PAD)
+    : knobX;
 
   const spring = { type: "spring" as const, stiffness: 180, damping: 28, mass: 1.2 };
 
   return (
-    <div
+    <motion.div
       ref={pillRef}
-      onClick={() => setRevealed((v) => !v)}
+      onClick={() => {
+        if (wasPanned.current) {
+          wasPanned.current = false;
+          return;
+        }
+        setRevealed((v) => !v);
+      }}
+      onPanStart={() => {
+        setIsPanning(true);
+        setDragOffset(0);
+      }}
+      onPan={(_, info) => {
+        setDragOffset(info.offset.x);
+      }}
+      onPanEnd={(_, info) => {
+        wasPanned.current = Math.abs(info.offset.x) > 4;
+        const progress = travel > 0 ? (knobX + info.offset.x - PAD) / travel : 0;
+        setRevealed(progress > 0.5);
+        setIsPanning(false);
+        setDragOffset(0);
+      }}
       role="button"
       aria-label={revealed ? "Hide email address" : "Reveal email address"}
       style={{
@@ -1675,6 +1702,7 @@ function EmailSlider() {
         cursor: "pointer",
         userSelect: "none",
         overflow: "hidden",
+        touchAction: "none",
       }}
     >
       {/* "Slide to reveal" label — fades out when revealed */}
@@ -1724,12 +1752,13 @@ function EmailSlider() {
 
       {/* Knob — slides between PAD and (pillWidth - KNOB - PAD) */}
       <motion.div
-        animate={{ x: knobX }}
+        animate={isPanning ? undefined : { x: displayX }}
         transition={spring}
         style={{
           position: "absolute",
           top: PAD,
           left: 0,
+          x: isPanning ? displayX : undefined,
           width: KNOB,
           height: KNOB,
           borderRadius: "50%",
@@ -1748,7 +1777,7 @@ function EmailSlider() {
           <ArrowRight size={20} strokeWidth={2} />
         </motion.div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
 
