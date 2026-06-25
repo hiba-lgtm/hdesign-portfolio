@@ -113,8 +113,8 @@ function Lightbox({
         src={images[index]}
         alt=""
         draggable={false}
-        className="max-w-full max-h-full object-contain touch-none"
-        style={{ borderRadius: "8px", flex: "1 1 auto", minHeight: 0 }}
+        className="max-w-full max-h-full object-contain"
+        style={{ borderRadius: "8px", flex: "1 1 auto", minHeight: 0, touchAction: "pinch-zoom" }}
         initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.25 }}
