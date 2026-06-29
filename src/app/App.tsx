@@ -230,7 +230,7 @@ function Nav({
         >
           <img
             src={logoImg}
-            alt="hdesign"
+            alt="H Design logo"
             className="h-8 w-auto object-contain"
             style={{ filter: isDark ? "none" : "invert(1)" }}
           />
@@ -785,7 +785,7 @@ function ThumbnailMedia({ work, className, style }: { work: Work; className?: st
       />
     );
   }
-  return <img src={work.thumbnail} alt={work.title} className={className} style={style} />;
+  return <img src={work.thumbnail} alt={work.imageAlt} className={className} style={style} />;
 }
 
 // ─── Custom cursor — see ./CustomCursor.tsx ───────────────────────────────────
@@ -999,7 +999,7 @@ function EditorialCardContent({ work, isInView }: { work: Work; isInView: boolea
             ) : (
               <motion.img
                 src={work.thumbnail}
-                alt={work.title}
+                alt={work.imageAlt}
                 className="w-full h-full object-cover object-center"
                 initial={{ scale: 1.0 }}
                 whileHover={{ scale: 1.03 }}

@@ -40,6 +40,7 @@ export interface Work {
   id: string;
   slug: string;
   title: string;
+  imageAlt: string;
   summary: string;
   caseStudyDescription: string;
   category: string;
@@ -66,6 +67,7 @@ export const WORKS: Work[] = [
     id: "01",
     slug: "neutreeno",
     title: "Terramo",
+    imageAlt: "Terramo sustainability SaaS dashboard UI design",
     summary:
       "Supplier decarbonisation platform — helping manufacturers map, track and reduce their Scope 3 emissions.",
     caseStudyDescription:
@@ -106,6 +108,7 @@ export const WORKS: Work[] = [
     id: "02",
     slug: "timr",
     title: "Timr",
+    imageAlt: "Timr employee time management SaaS interface",
     summary:
       "Employee time management SaaS for staffing agencies — designed end-to-end across marketing website, web dashboard, and iOS app.",
     caseStudyDescription:
@@ -146,6 +149,7 @@ export const WORKS: Work[] = [
     id: "03",
     slug: "hauler-hero",
     title: "Hauler Hero",
+    imageAlt: "Hauler Hero field service SaaS interface",
     summary:
       "Enterprise SaaS platform for waste and recycling businesses — covering CRM, route management, billing, dispatching, and a white-label customer portal.",
     caseStudyDescription:
@@ -175,6 +179,7 @@ export const WORKS: Work[] = [
     id: "04",
     slug: "pebble",
     title: "Pebble",
+    imageAlt: "Pebble CRM product design",
     summary:
       "Property management CRM for real estate professionals — redesigned across client dashboard, billing portal, listing flows, inbox, lead views, and admin portal.",
     caseStudyDescription:
@@ -205,6 +210,7 @@ export const WORKS: Work[] = [
     id: "05",
     slug: "listing-leaders",
     title: "Listing Leaders",
+    imageAlt: "Listing Leaders real estate website design",
     summary:
       "A modern website redesign for a real estate pre-licensing school in Northwest Indiana — covering brand presentation, course information architecture, and a fresh visual direction while preserving their existing logo.",
     caseStudyDescription:
@@ -235,6 +241,7 @@ export const WORKS: Work[] = [
     id: "06",
     slug: "gmf-associates",
     title: "GMF Associates",
+    imageAlt: "GMF Associates architecture firm website redesign",
     summary:
       "A complete website overhaul for an architecture firm — revamped interface, new color palette, and restructured layout to better showcase their portfolio, while preserving their existing logo.",
     caseStudyDescription:

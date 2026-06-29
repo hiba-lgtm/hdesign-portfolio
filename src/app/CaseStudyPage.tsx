@@ -45,11 +45,13 @@ function GalleryImage({ src, alt, onClick }: { src: string; alt: string; onClick
 
 function Lightbox({
   images,
+  alts,
   index,
   onClose,
   onNavigate,
 }: {
   images: string[];
+  alts: string[];
   index: number;
   onClose: () => void;
   onNavigate: (i: number) => void;
@@ -111,7 +113,7 @@ function Lightbox({
       <motion.img
         key={index}
         src={images[index]}
-        alt=""
+        alt={alts[index] ?? ""}
         draggable={false}
         className="max-w-full max-h-full object-contain"
         style={{ borderRadius: "8px", flex: "1 1 auto", minHeight: 0, touchAction: "pinch-zoom" }}
@@ -228,7 +230,7 @@ export default function CaseStudyPage() {
         <div className="px-6 md:px-12 h-16 flex items-center">
           <div className="max-w-6xl mx-auto w-full flex items-center justify-between">
             <Link to="/" aria-label="Back to home">
-              <img src={logoImg} alt="hdesign" className="h-8 w-auto object-contain" style={{ filter: isDark ? "none" : "invert(1)" }} />
+              <img src={logoImg} alt="H Design logo" className="h-8 w-auto object-contain" style={{ filter: isDark ? "none" : "invert(1)" }} />
             </Link>
             <div className="flex items-center gap-6">
               <Link
@@ -498,6 +500,7 @@ export default function CaseStudyPage() {
         {lightboxIndex !== null && (
           <Lightbox
             images={work.caseStudyImages}
+            alts={work.caseStudyImages.map((_, i) => `${work.title} — screen ${i + 1}`)}
             index={lightboxIndex}
             onClose={() => setLightboxIndex(null)}
             onNavigate={setLightboxIndex}
