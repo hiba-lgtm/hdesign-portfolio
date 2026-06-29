@@ -441,7 +441,7 @@ function Hero() {
           />
 
           {/* Headline — two explicit rows, description beside "Beautiful" on row 1 */}
-          <div className="flex flex-col mb-6" style={{ fontSize: "clamp(2.8rem, 5.5vw, 6.5rem)" }}>
+          <h1 className="flex flex-col mb-6" style={{ fontSize: "clamp(2.8rem, 5.5vw, 6.5rem)" }}>
 
             {/* Row 1: "Beautiful" + description in remaining space */}
             <div className="flex items-center gap-10">
@@ -509,7 +509,7 @@ function Hero() {
               </span>
             </motion.span>
 
-          </div>
+          </h1>
 
           {/* Divider below headline */}
           <motion.div
@@ -1474,12 +1474,12 @@ function Approach() {
 
         {/* Section label */}
         <div className="flex items-center gap-3 mb-14">
-          <span
+          <h2
             className="text-[10px] tracking-[0.28em] uppercase font-medium"
             style={{ fontFamily: "'DM Mono', monospace", color: "var(--primary)" }}
           >
             Approach
-          </span>
+          </h2>
           <div className="flex-1 h-px" style={{ background: "var(--on-canvas-hairline)" }} />
         </div>
 
@@ -1555,12 +1555,12 @@ function Testimonials() {
     <section className="py-24 px-6 md:px-12" style={{ background: "var(--canvas-muted)" }}>
       <div className="max-w-2xl mx-auto flex flex-col items-center text-center">
         {/* Eyebrow */}
-        <span
+        <h2
           style={{ fontFamily: "'DM Mono', monospace", color: "var(--on-canvas-dim)" }}
           className="text-[10px] tracking-[0.3em] uppercase mb-12 block"
         >
           What clients say
-        </span>
+        </h2>
 
         {/* Quote */}
         <blockquote
